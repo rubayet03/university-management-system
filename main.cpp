@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <windows.h>
 #include "admin.h"
 #include "student.h"
@@ -45,11 +46,13 @@ public:
             }
         }
     }
+    // void loading_scrn(){
+    // }
 };
 
 int main()
 {
-    system("color 9F");
+    // system("color 9F");
     window::main_menu();
     return 0;
 }

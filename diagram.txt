@@ -1,0 +1,33 @@
+Login/Registration → Verify Role → Redirect to Dashboard  
+   │  
+   ├─ Student Dashboard:  
+   │   ├─ View Report Card (CGPA)* 
+   │   ├─ Check Attendance (DP)*  
+   │   ├─ View Course Info  
+   │   ├─ View Leaderboard (DP)  
+   │   ├─ Pay Fees  
+   │   └─ Messaging(DP)*
+   │       ├─ Chatbot Support (FAQ)  
+   │       └─ Send Message to Faculty/Admin (One-Way)  
+   │  
+   ├─ Faculty Dashboard:  
+   │   ├─ Upload Course Outline  
+   │   ├─ Update Attendance (DP)* 
+   │   ├─ Input Grades (DP)*  
+   │   ├─ View Routine  
+   │   └─ Messaging (DP)*
+   │       ├─ Chatbot Support (FAQ)  
+   │       └─ Send Message to Admin/Student (One-Way)  
+   │  
+   └─ Admin Dashboard:  
+        -view student list
+        -delete student Info
+        -add student Info
+       ├─ Process Admissions  
+       ├─ Manage Fees  
+       ├─ Update FAQ (Chatbot Knowledge Base)*  
+       ├─ Edit Curriculum  
+       └─ Messaging  (DP)*
+           ├─ Chatbot Configuration  
+           └─ Send Announcements (One-Way Broadcast)
+        
