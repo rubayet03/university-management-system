@@ -13,7 +13,7 @@ public:
     static void main_menu()
     {
         int n;
-        string error = "Invalid Input!\n";
+        string error = "Invalid Input!";
         while (true)
         {
             system("cls");
@@ -41,6 +41,7 @@ public:
                 return;
             default:
                 system("cls");
+                Sleep(500);
                 cout << error << "\n";
                 Sleep(2000);
             }

@@ -7,6 +7,9 @@ using namespace std;
 
 class admin
 {
+private:
+    vector<string> optn = {"roll", "name", "dept", "attendance", "physics_marks", "chemistry_marks", "biology_marks"};
+
 public:
     string name, pass, p = "password";
     vector<vector<string>> v;
@@ -17,42 +20,13 @@ public:
     void login();
     void viewlist();
     void menu();
+    void updateconst();
     void updatelist();
+    void updatevector();
     admin()
     {
         // add student info from csv file🗿🗿
-        ifstream file("data.csv");
-        string s;
-        while (getline(file, s))
-        {
-            vector<string> temp;
-            int len = s.length();
-            int start = 0, ind;
-            for (int i = 0; i < len; i++)
-            {
-                if (s[i] == ',' || i == len - 1)
-                {
-                    string sub;
-                    if (i == len - 1)
-                    {
-                        ind = i - start + 1;
-                    }
-                    else
-                    {
-                        ind = i - start;
-                    }
-                    sub = s.substr(start, ind);
-                    temp.push_back(sub);
-                    if (i != len - 1)
-                    {
-                        temp.push_back(",");
-                    }
-                    start = i + 1;
-                }
-            }
-            v.push_back(temp);
-        }
-        file.close();
+        updatevector();
     }
 };
 
@@ -134,7 +108,7 @@ void admin::menu()
 }
 void admin::viewlist()
 {
-    updatelist();
+    updateconst();
     system("cls");
     cout << "Student List:\n";
     cout << "Roll,Name,Dept,Attendance,Physics,Chemistry,Biology\n";
@@ -157,44 +131,19 @@ void admin::viewlist()
 }
 void admin::addlist()
 {
-    string roll, name, dept, attendance, phy, chem, bio;
     system("cls");
-    cout << "Add student Info\n";
-    cout << "Enter student's roll:";
-    cin >> roll;
+    cout << "Enter student's Info:\n";
     getchar();
-    cout << "Enter student's name:";
-    getline(cin, name);
-    cout << "Enter student's department:";
-    getline(cin, dept);
-    cout << "Enter student's attendance:";
-    getline(cin, attendance);
-    cout << "Enter student's physics_marks:";
-    getline(cin, phy);
-    cout << "Enter student's chemistry_marks:";
-    getline(cin, chem);
-    cout << "Enter student's biology_marks:";
-    getline(cin, bio);
-    string new_record = roll + "," + name + "," + dept + "," + attendance + "," + phy + "," + chem + "," + bio;
-    // add new record
     vector<string> temp;
-    int len = new_record.length();
-    for (int i = 0; i < len; i++)
+    string s;
+    for (int i = 0; i < optn.size(); i++)
     {
-        for (int j = i; j < len; j++)
-        {
-            if (new_record[j] == ',' || j == len - 1)
-            {
-                temp.push_back(new_record.substr(i, (j - i) + 1));
-                i = j;
-                break;
-            }
-        }
+        cout << "Enter student's " << optn[i] << ":";
+        getline(cin, s);
+        temp.push_back(s);
     }
     v.push_back(temp);
-    ofstream outfile("data.csv", ios::app);
-    outfile << new_record << "\n";
-    outfile.close();
+    updatelist();
 }
 void admin::editlist()
 {
@@ -204,28 +153,31 @@ void admin::editlist()
     string roll, s;
     cin >> roll;
     system("cls");
-    string optn[] = {"name","dept","attendance","physics_marks","chemistry_marks","biology_marks"};
-    cout << "Enter 1 to edit " << optn[0] << "\n";
-    cout << "Enter 2 to edit " << optn[1] << "\n";
-    cout << "Enter 3 to edit " << optn[2] << "\n";
-    cout << "Enter 4 to edit " << optn[3] << "\n";
-    cout << "Enter 5 to edit " << optn[4] << "\n";
-    cout << "Enter 6 to edit " << optn[5] << "\n";
-    int n;
 
+    for (int i = 0; i < optn.size(); i++)
+    {
+        cout << "Enter " << i + 1 << " to edit " << optn[i] << "\n";
+    }
+    int n;
     cin >> n;
-    cin >> s;
+
     for (int i = 0; i < v.size(); i++)
     {
-
-        for (int j = 0; j < v[i].size(); j++)
+        if (v[i][0] == roll)
         {
+            cout << "Enter " << v[i][1] << "'s updated " << optn[n - 1]<<": ";
+            cin >> s;
+            v[i][n - 1] = s;
+            cout << v[i][1] << "'s " << optn[n - 1] << " has been updated! :D\n";
+            Sleep(1500);
+            break;
         }
-        cout << "\n";
     }
+    updatelist();
 }
 void admin::deletelist()
 {
+    updateconst();
     system("cls");
     string roll;
     cout << "Add student's roll to delete info: \n";
@@ -239,18 +191,59 @@ void admin::deletelist()
         }
     }
     v = temp;
-    ofstream outfile("data.csv");
-    for (auto &row : v)
+    updatelist();
+}
+void admin::updatevector()
+{
+    ifstream file("./data/data.csv");
+    string s;
+    while (getline(file, s))
     {
-        for (auto &item : row)
+        vector<string> temp;
+        int len = s.length();
+        int start = 0, ind;
+        for (int i = 0; i < len; i++)
         {
-            outfile << item;
+            if (s[i] == ',' || i == len - 1)
+            {
+                string sub;
+                if (i == len - 1)
+                {
+                    ind = i - start + 1;
+                }
+                else
+                {
+                    ind = i - start;
+                }
+                sub = s.substr(start, ind);
+                temp.push_back(sub);
+                start = i + 1;
+            }
         }
-        outfile << "\n";
+        v.push_back(temp);
     }
-    outfile.close();
+    file.close();
 }
 void admin::updatelist()
+{
+    int len;
+    ofstream file("./data/data.csv");
+    for (int i = 0; i < v.size(); i++)
+    {
+        len = v[i].size();
+        for (int j = 0; j < len; j++)
+        {
+            file << v[i][j];
+            if (j != len - 1)
+            {
+                file << ",";
+            }
+        }
+        file << "\n";
+    }
+    file.close();
+}
+void admin::updateconst()
 {
     admin newobj;
     v = newobj.v;
