@@ -4,13 +4,14 @@
 
 class faculty : public admin
 {
-    string username, password;
+    string username, password,course;
     vector<string> names = {"Course_ID", "Course_Name", "Faculty_Name"};
     void updateattnd();
     void viewattnd();
     void uploadcourseinfo();
-    void updtgrades();
+    void viewgrades();
     void inputgrades();
+    void getcourseid();
     const vector<vector<string>> &viewcourses();
 
 public:
@@ -21,10 +22,12 @@ public:
     faculty()
     {
         updatevector("courses", courses);
+        getcourseid();
     }
     faculty(string u)
     {
         username = u;
+        getcourseid();
         updatevector("courses", courses);
     }
 };

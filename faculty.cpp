@@ -99,18 +99,21 @@ const vector<vector<string>> &faculty::viewcourses()
 {
     return courses;
 }
-void faculty::updateattnd()
+void faculty::getcourseid()
 {
-    ofstream file("./data/attendance.csv", ios_base::app);
-    string course;
     for (int i = 0; i < courses.size(); i++)
     {
         if (courses[i][2] == username)
         {
             course = courses[i][0];
-            break;
+            return;
         }
     }
+}
+void faculty::updateattnd()
+{
+    ofstream file("./data/attendance.csv", ios_base::app);
+
     student var;
     string x;
     for (int i = 0; i < var.students.size(); i++)
@@ -143,14 +146,14 @@ void faculty::viewattnd()
     cout << "Course_code,";
     cout << "Total_Class,";
     cout << "Present_Percentage\n";
-    for(auto i : var)
+    for (auto i : var)
     {
         cout << i.first.first << ",";
         cout << i.first.second << ",";
         cout << i.second.first << ",";
-        cout << ceil(i.second.second * 100.00/i.second.first) << "%\n";
+        cout << ceil(i.second.second * 100.00 / i.second.first) << "%\n";
     }
     string pp;
-    cout <<"\nEnter anything to exit\n";
+    cout << "\nEnter anything to exit\n";
     cin >> pp;
 }
