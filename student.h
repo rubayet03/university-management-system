@@ -1,41 +1,25 @@
-#include<iostream>
-#include<stdlib.h>
-
+#pragma once
 
 using namespace std;
 
-class student : public admin{
-    void menu();
-    
-};
-
-void student::menu()
+class student : public faculty
 {
-    int n;
-    string error = "Invalid Input!\n";
-    while (true)
-    {
-        system("cls");
-        cout << "Choose an option: \n";
+    string username,id, password;
+    int isvalid(string c);
 
-        cout << "1. View student list\n";
-        cout << "2. Exit\n";
-        cin >> n;
-        switch (n)
-        {
-        case 1:
-        {
-            viewlist();
-            break;
-        }
-        case 2:
-            cout << "Logged Out!\n";
-            Sleep(2000);
-            return;
-        default:
-            system("cls");
-            cout << error << "\n";
-            Sleep(2000);
-        }
+public:
+    vector<vector<string>> students;
+    void menu() override;
+    void enrollcourse();
+    int alreadyenrolled(string u, string c);
+    student()
+    {
+        updatevector("student_course", students);
     }
-}
+    student(string i,string u)
+    {
+        id = i;
+        username = u;
+        updatevector("student_course", students);
+    }
+};

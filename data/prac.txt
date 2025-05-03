@@ -1,0 +1,13 @@
+users.csv → id,username,password,role
+
+grades.csv → student_id,course_id,grade
+
+attendance.csv → student_id,course_id,date,status
+
+courses.csv → course_id,name,instructor_id
+
+fees.csv → student_id,status,amount_due
+
+student_course.csv → student_id, course_id
+
+id,username,password,role
